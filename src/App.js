@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import './App.css';
 
 // Custom components
+import Toogle from './components/Toogle';
 import Image from './components/Image';
 import Phrase from './components/Phrase';
 import Button from './components/Button';
@@ -19,6 +20,7 @@ const App = () => {
   const [threeFirstWords, setThreeFirstWords] = useState('');
   const [loading, setLoading] = useState(true);
   const [imgSrc, setImgSrc] = useState('');
+  const [toogle, setToogle] = useState(false);
 
   const handleButton = (activator) => {
 
@@ -36,40 +38,70 @@ const App = () => {
     }
   }
 
-  
-  const loadImage = () =>{
+  const handleToogleSytle = activator => {
+    const toogle = document.getElementById('toogle');
+    if(activator){
+      toogle.removeAttribute("disabled")
+      toogle.classList.remove('toogle-disabled');
+    }
+    if(!activator){
+      toogle.setAttribute("disabled", true)
+      toogle.classList.add('toogle-disabled');
+    }
+  }
+
+
+  const loadImage = () => {
     handleButton(true)
+    handleToogleSytle(true);
   }
 
   const fetchAPIs = () => {
     factService.getFact()
-      .then(data => {        
+      .then(data => {
         let array = data.fact.split(" ");
         setThreeFirstWords(`${array[0]} ${array[1]} ${array[2]}`);
         setCatFact(data.fact)
-        setLoading(false)        
+        setLoading(false)
       })
       .catch(err => {
         console.log("Error", err);
       })
   }
 
-  useEffect(fetchAPIs,[])
+  useEffect(fetchAPIs, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     gifService.getGit(threeFirstWords)
-      .then(response =>{        
-        setImgSrc(response.data[0].images.original.url) 
-        // setImgSrc(response.data[0].images.preview_gif.url)                     
+      .then(response => {
+        if (toogle) {
+          console.log("HD")
+          setImgSrc(response.data[0].images.original.url)
+        }
+        if (!toogle) {
+          console.log("HQ")
+          setImgSrc(response.data[0].images.preview_gif.url)
+        }
       })
-      .catch(err =>{
+      .catch(err => {
         console.log("Error", err);
       })
-  },[threeFirstWords])
+  }, [threeFirstWords, toogle])
 
   const handleClick = () => {
     fetchAPIs();
+    handleToogleSytle(false)
     handleButton(false);
+  }
+
+  const handleToogle = e => {
+    handleButton(false)
+    handleToogleSytle(false)
+    if (e.currentTarget.checked) {
+      setToogle(true)
+    } else {
+      setToogle(false)
+    }
   }
 
   return (
@@ -79,6 +111,7 @@ const App = () => {
           <Image handleLoad={loadImage} src={imgSrc} />
           <Phrase text={loading ? 'Loading...' : catFact} />
         </div>
+        <Toogle handleCheck={handleToogle} />
         <Button handleClick={handleClick} />
       </div>
     </div>
