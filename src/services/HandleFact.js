@@ -1,3 +1,4 @@
+
 const URL_FACT_API = 'https://catfact.ninja/fact';
 
 const getFact = () =>{

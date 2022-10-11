@@ -23,17 +23,18 @@
 }
 
 .container {  
-  background: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.252);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);  
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);  
   border-radius: .3rem;
   width: 70%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
+  padding: 20px 0;
 }
 
 .container__block-1 {
@@ -41,24 +42,30 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 30px;
+  align-items: center;  
 }
 
 .container__image-container {
-  min-width: 300px;
+  display: flex;
+  min-width: 250px;
   height: 300px;
   flex-grow: 6;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
-
+.image-container__img{
+  border-radius: .8rem;
+  object-fit: cover;
+  margin: auto;
+  width: 50%;
+  height: 200px;
+}
 .container__phrase {
   max-width: 350px;
   display: inline-block;
   flex-grow: 1;
-  text-align: center;
-  font-size: 13px;
-  
+  /* text-align: center; */
+  /* border: 1px solid red; */
+  font-size: 13px;  
 }
 
 .container__button {
@@ -99,12 +106,13 @@
   content:"Refresh"
 }
 .onclick {  
-  border: 2px solid var(--borderBtnColor);
+  cursor: progress;
+  border: 2px solid var(--bckBtnColor);
   width: 40px;
   border-color: transparent;
-  border-width:3px;
+  border-width:5px;
   font-size:0;
-  border-left-color: var(--borderBtnColor);
+  border-left-color: var(--bckBtnColor);
   animation: rotating 1s 0.25s linear infinite;
 }
 .onclick::after{
