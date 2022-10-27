@@ -15,3 +15,7 @@ The result should be displayed with the image on the left side and the text on t
 
 Note: The Giphy API KEY gets by signing up in the website.
 
+## Live Demo
+
+    https://react-interview-macover.fly.dev/
+
